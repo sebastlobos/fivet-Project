@@ -33,7 +33,7 @@ import cl.ucn.disc.pdis.fivet.orm.BaseEntity;
 public final class FichaMedica extends BaseEntity {
 
     /**
-     * numero atribute.
+     * numero atributo.
      */
     private final Integer numero;
 

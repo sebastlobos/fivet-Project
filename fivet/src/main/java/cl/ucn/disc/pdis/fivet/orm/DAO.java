@@ -30,7 +30,7 @@ import java.util.Optional;
 /**
  * Data Access Obj:DAO.
  * @param  <T>.
- * @author Sebastián Lobos Aravena.
+ * @author Sebastián Lobos-Aravena.
  */
 public interface DAO <T extends BaseEntity> {
     /**

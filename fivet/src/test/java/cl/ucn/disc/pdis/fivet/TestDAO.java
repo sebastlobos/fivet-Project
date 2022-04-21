@@ -50,6 +50,8 @@ import java.time.ZonedDateTime;
  * @author Sebastian Lobos-Aravena.
  */
 public final class TestDAO {
+    private Logger log;
+
     /**
      * The Main DAO.
      */
