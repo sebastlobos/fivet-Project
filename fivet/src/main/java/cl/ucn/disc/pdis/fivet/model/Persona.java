@@ -23,80 +23,43 @@
  */
 
 package cl.ucn.disc.pdis.fivet.model;
+import cl.ucn.disc.pdis.fivet.orm.BaseEntity;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Sebastian lobos-Aravena.
  */
 
-@DatabaseTable(tableName = "persona")
-public final class Persona {
-/**
- * The id: primary Key and autoincrement
- */
-
-@DatabaseField(generatedId = true )
-    private Long id;
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@DatabaseTable
+public final class Persona extends BaseEntity {
 
     /**
-     * The nombre.
+     * The RUT.
      */
-    @DatabaseField(canBeNull = false)
-    private String nombre;
-
-/**
- * The apellido.
- *
- */
-    @DatabaseField(canBeNull = false)
-    private String apellido;
-
-    /**
-     * The Rut.
-     */
-    @DatabaseField(canBeNull = false, index = true)
+    @Getter
+    @DatabaseField(canBeNull = false, unique = true)
     private String rut;
 
     /**
-     * Empty constructor; default visibility and empty body.
-     * @param nombre
-     * @param apellido
-     * @param rut
+     * The Nombre.
      */
-    Persona(String nombre, String apellido, String rut){
-        // nothing here.
-    }
+    @Getter
+    @DatabaseField(canBeNull = false)
+    private String nombre;
 
-    public Long getId() {
-        return id;
-    }
+    /**
+     * The Email.
+     */
+    @Getter
+    @DatabaseField(canBeNull = false, unique = true)
+    private String email;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getRut() {
-        return rut;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
-    }
 }
