@@ -55,6 +55,7 @@ public final class ZonedDateTimeType extends BaseDataType {
      * The private Constructor
      */
     private ZonedDateTimeType(){
+
         super(SqlType.STRING,new Class<?>[]{ZonedDateTime.class});
     }
 
