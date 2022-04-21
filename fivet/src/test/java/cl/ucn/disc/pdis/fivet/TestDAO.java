@@ -93,23 +93,25 @@ public final class TestDAO {
         log.debug("Creating entities...");
 
         {
-            TheEntity theEntityA = TheEntity.builder()
-                    .theString("The String A")
-                    .theInteger(128)
-                    .theDouble(128.0)
-                    .theBoolean(Boolean.TRUE)
-                    .build();
-            dao.save(theEntityA);
-            log.debug("To db: {}", ToStringBuilder.reflectionToString(theEntityA, ToStringStyle.MULTI_LINE_STYLE));
+          TheEntity theEntityA= TheEntity.builder()
+            .theString("the String A")
+                  .theInteger(128)
+                  .theDouble(128.0)
+                  .theBoolean(Boolean.TRUE)
+                  .build();
+          dao.save(theEntityA);
+          log.debug("to db:{}", ToStringBuilder.reflectionToString(theEntityA,
+                  ToStringStyle.MULTI_LINE_STYLE));
 
-            TheEntity theEntityB = TheEntity.builder()
-                    .theString("The String B")
-                    .theInteger(1024)
-                    .theDouble(1024.0)
-                    .theBoolean(Boolean.FALSE)
-                    .build();
-            dao.save(theEntityB);
-            log.debug("To db: {}", ToStringBuilder.reflectionToString(theEntityB, ToStringStyle.MULTI_LINE_STYLE));
+          TheEntity theEntityB =TheEntity.builder()
+                  .theString("The String B")
+                  .theInteger(128)
+                  .theDouble(128.0)
+                  .theBoolean(Boolean.TRUE)
+                  .build();
+          dao.save(theEntityB);
+          log.debug("to db: {}",ToStringBuilder.reflectionToString(theEntityB,ToStringStyle.MULTI_LINE_STYLE) );
+
         }
 
         // Retrieve..
