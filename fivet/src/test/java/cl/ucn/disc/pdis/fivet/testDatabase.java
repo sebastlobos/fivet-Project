@@ -40,11 +40,11 @@ import java.sql.SQLException;
 public class testDatabase {
 
 
-    private Logger log;
 
     @Test
     public void testDatabase() throws SQLException {
         // The database to use ( in RAM memory)
+
         String databaseUrl = "jdbc:h2:mem:fivet_db";
         //Connection source : autoclose with the try/catch
 
@@ -52,14 +52,15 @@ public class testDatabase {
             //Create the table from the persona annotations
             TableUtils.createTableIfNotExists(connectionSource, Persona.class);
             // The dao of Persona
-            Dao<Persona, Long> daoPersona = DaoManager.createDao(connectionSource,Persona.class);
+            Dao<Persona,Integer> daoPersona = DaoManager.createDao(connectionSource,Persona.class);
 
             //new Persona
           Persona persona = new Persona("Andrea", "Contreras", "152532873");
 
             //insert Persona into the database
             int tuples =daoPersona.create(persona);
-           log.debug("Id: {}", persona.getId());
+
+           //log.debug("Id: {}", persona.getId());
 
             //
             Assertions.assertEquals(1,tuples,"save tuples ! = 1");
@@ -68,8 +69,8 @@ public class testDatabase {
             Persona personaDb = daoPersona.queryForId(persona.getId());
 
             Assertions.assertEquals(persona.getNombre(), personaDb.getNombre(),"Nombre not equals!");
-            Assertions.assertEquals(persona.getApellido(),personaDb.getApellido(),"Apellido not equals!");
             Assertions.assertEquals(persona.getRut(),personaDb.getRut(),"Rut not equals!");
+            Assertions.assertEquals(persona.getEmail(), personaDb.getEmail(), "Email not equals");
         } catch (Exception e) {
             e.printStackTrace();
         }
