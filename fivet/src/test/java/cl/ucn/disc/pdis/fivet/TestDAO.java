@@ -49,8 +49,11 @@ import java.time.ZonedDateTime;
  * Testing the DAO
  * @author Sebastian Lobos-Aravena.
  */
+@Slf4j
 public final class TestDAO {
-    private Logger log;
+
+
+
 
     /**
      * The Main DAO.

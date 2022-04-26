@@ -25,10 +25,11 @@
 package cl.ucn.disc.pdis.fivet;
 
 import cl.ucn.disc.pdis.fivet.model.Persona;
+import cl.ucn.disc.pdis.fivet.orm.ZonedDateTimeType;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.field.DataPersisterManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
-import com.j256.ormlite.logger.Logger;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import org.junit.jupiter.api.Assertions;
@@ -45,6 +46,8 @@ public class testDatabase {
     public void testDatabase() throws SQLException {
         // The database to use ( in RAM memory)
 
+        DataPersisterManager.registerDataPersisters(ZonedDateTimeType.INSTANCE);
+
         String databaseUrl = "jdbc:h2:mem:fivet_db";
         //Connection source : autoclose with the try/catch
 
@@ -55,7 +58,7 @@ public class testDatabase {
             Dao<Persona,Integer> daoPersona = DaoManager.createDao(connectionSource,Persona.class);
 
             //new Persona
-          Persona persona = new Persona("Andrea", "Contreras", "152532873");
+             Persona persona = new Persona("Andrea", "Contreras", "152532873");
 
             //insert Persona into the database
             int tuples =daoPersona.create(persona);

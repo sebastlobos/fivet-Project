@@ -53,6 +53,9 @@ dependencies {
     // Commons Lang
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 
+    // Lombok
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
 
 
