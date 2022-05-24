@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package cl.ucn.disc.pdis.fivet;
+package cl.ucn.disc.pdis.fivet.orm;
 import cl.ucn.disc.pdis.fivet.orm.BaseEntity;
 import cl.ucn.disc.pdis.fivet.orm.DAO;
 import cl.ucn.disc.pdis.fivet.orm.ORMLiteDAO;
@@ -51,9 +51,6 @@ import java.time.ZonedDateTime;
  */
 @Slf4j
 public final class TestDAO {
-
-
-
 
     /**
      * The Main DAO.

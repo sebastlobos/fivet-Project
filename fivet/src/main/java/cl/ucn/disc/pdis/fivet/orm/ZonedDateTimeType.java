@@ -52,7 +52,7 @@ public final class ZonedDateTimeType extends BaseDataType {
     private static final int DEFAULT_WIDTH = 100;
 
     /**
-     * The private Constructor
+     * The private Constructor.
      */
     private ZonedDateTimeType(){
 
