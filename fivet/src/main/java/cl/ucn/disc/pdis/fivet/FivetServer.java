@@ -42,7 +42,6 @@ public class FivetServer {
                 .addService(new FivetServiceImpl())
                 .build()
                 .start();
-
         server.awaitTermination();
     }
 

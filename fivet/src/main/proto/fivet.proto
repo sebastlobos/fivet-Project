@@ -17,5 +17,6 @@ message Persona {
 service FivetService {
   rpc autenticar(Credencial) returns (Persona) {}
 
-  //rpc registrarControl(control, numeroFicha) returns (Ficha) {}
+
+
 }
