@@ -60,4 +60,12 @@ public interface DAO <T extends BaseEntity> {
      * Delete a T with id.
      */
     void delete(Integer id);
+
+    Optional<T> get(String rut, String login);
+
+    void dropAndCreateTable();
+
+    //VOID UPDATE
+
+
 }
