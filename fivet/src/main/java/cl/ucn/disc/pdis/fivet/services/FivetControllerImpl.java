@@ -29,26 +29,33 @@ import cl.ucn.disc.pdis.fivet.orm.DAO;
 import cl.ucn.disc.pdis.fivet.orm.ORMLiteDAO;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
+import lombok.SneakyThrows;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import lombok.extern.slf4j.Slf4j;
 import java.sql.SQLException;
 import java.util.Optional;
-
+@Slf4j
 public class FivetControllerImpl implements FivetController {
 
-    private DAO<Persona> daoPersona;
+    private final DAO<Persona> daoPersona;
 
     /**
      * The function of DAO.
      */
     private final static PasswordEncoder PASSWORD_ENCODER = new Argon2PasswordEncoder();
 
-    public FivetControllerImpl(String dbUrl) throws SQLException {
+    public FivetControllerImpl(String dbUrl, boolean b) throws SQLException {
 
         ConnectionSource cs = new JdbcConnectionSource(dbUrl);
         this.daoPersona = new ORMLiteDAO<>(cs, Persona.class);
 
+    }
+    @SneakyThrows
+    public FivetControllerImpl(String databaseUrl) {
+        ConnectionSource cs = new JdbcConnectionSource(databaseUrl);
+        this.daoPersona = new ORMLiteDAO<>(cs,Persona.class);
+        this.daoPersona.dropAndCreateTable();
     }
 
     @Override
@@ -56,19 +63,53 @@ public class FivetControllerImpl implements FivetController {
 
     }
 
+    /**
+     *
+     * @param login
+     * @return
+     */
     @Override
     public Optional<Persona> retrieveLogin(String login) {
-        return Optional.empty();
+        Optional<Persona> persona = this.daoPersona.get("rut" , login);
+        if (persona.isEmpty()){
+            persona = this.daoPersona.get("email", login);
+        } if(persona.isEmpty()){
+            return Optional.empty();
+        }
+        return persona;
     }
 
     @Override
+
     public Optional<Persona> Autenticar(String login, String password) {
+        Optional<Persona> persona = this.daoPersona.get("rut", login);
+        if (persona.isEmpty()) {
+            persona = this.daoPersona.get("email", login);
+        }
+        if (persona.isEmpty()) {
+            return Optional.empty();
+        }
+        if (PASSWORD_ENCODER.matches(password, persona.get().getPassword())){
+            return persona;
+        }
+        log.debug("Failed");
         return Optional.empty();
     }
 
     @Override
     public void delete(Integer idPersona) {
+    this.daoPersona.delete(idPersona);
+    }
 
+    @Override
+    public Optional<Persona> retrieveBylLogin(String login) {
+        return Optional.empty();
+    }
+
+
+    @Override
+    public Optional<Persona> retrieveByLogin(String login) {
+        return Optional.empty();
     }
 
 }

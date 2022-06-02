@@ -40,4 +40,7 @@ public interface FivetController {
     Optional<Persona> Autenticar(String login, String password);
     void delete(Integer idPersona);
 
-}
+            Optional<Persona> retrieveBylLogin(String login);
+
+            Optional<Persona> retrieveByLogin(String login);
+        }
