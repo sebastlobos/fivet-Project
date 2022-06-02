@@ -41,6 +41,7 @@ import lombok.NoArgsConstructor;
 @DatabaseTable
 public final class Persona extends BaseEntity {
 
+    private String Persona;
     /**
      * The RUT.
      */
@@ -61,5 +62,21 @@ public final class Persona extends BaseEntity {
     @Getter
     @DatabaseField(canBeNull = false, unique = true)
     private String email;
+
+    /**
+     * The Direccion.
+     */
+    @Getter
+    @DatabaseField(canBeNull = true)
+    private String direccion;
+
+    /**
+     * The password.
+     */
+    @Getter
+    @DatabaseField(canBeNull = false)
+    private String password;
+
+
 
 }

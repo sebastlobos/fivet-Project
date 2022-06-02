@@ -23,32 +23,43 @@
  */
 
 package cl.ucn.disc.pdis.fivet.orm;
+import cl.ucn.disc.pdis.fivet.model.FichaMedica;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.field.DataPersisterManager;
 import com.j256.ormlite.support.ConnectionSource;
 import lombok.NonNull;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-
+@Slf4j
 public final class ORMLiteDAO <T extends BaseEntity> implements DAO<T>{
 
+    //STATIC init
+    static{
+        log.debug("");
+        DataPersisterManager.registerDataPersisters();
+    }
     /**
      * The real DAO (connection to ORMlite DAO)
      */
     private final Dao<T, Integer> theDao;
-
+    private static ConnectionSource cs;
     /**
      * The Constructor of ORMLiteDAO.
      * @param cs the connection to the database.
      * @param clazz the type of T.
      */
     @SneakyThrows(SQLException.class)
-    public ORMLiteDAO(@NonNull final ConnectionSource cs,@NonNull final Class<T> clazz){
+    public ORMLiteDAO(@NonNull final ConnectionSource cs, final Class<T> clazz){
         this.theDao = DaoManager.createDao(cs,clazz);
+        ORMLiteDAO.cs = cs;
     }
+
+
 
     /**
      * Get optional, T
@@ -60,8 +71,14 @@ public final class ORMLiteDAO <T extends BaseEntity> implements DAO<T>{
     @Override
     public Optional<T> get(final Integer id) {
         // Exec the SQL
-        T t = this.theDao.queryForId(id);
-        return t == null ? Optional.empty() : Optional.of(t);
+        T t =  this.theDao.queryForId(id);
+       if(t==null){
+           return Optional.empty();
+       }
+       if(t.getDeletedAt() != null){
+           return  Optional.empty();
+        }
+       return  Optional.of(t);
     }
 
     /**
@@ -113,5 +130,15 @@ public final class ORMLiteDAO <T extends BaseEntity> implements DAO<T>{
         if (deleted != 1){
             throw new SQLException("Rows deleted != 1");
         }
+    }
+
+    @Override
+    public Optional<T> get(String rut, String login) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void dropAndCreateTable() {
+
     }
 }

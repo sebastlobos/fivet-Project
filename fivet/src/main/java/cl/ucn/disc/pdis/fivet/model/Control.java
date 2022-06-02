@@ -22,55 +22,63 @@
  * SOFTWARE.
  */
 
-package cl.ucn.disc.pdis.fivet.orm;
+package cl.ucn.disc.pdis.fivet.model;
+
+import cl.ucn.disc.pdis.fivet.orm.BaseEntity;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
 
 /**
- * Base Entity Class.
- *
- * @author Sebastian Lobos-Aravena.
+ * The control
  */
-public abstract class BaseEntity {
+public final  class Control extends BaseEntity {
     /**
-     * Id of the entity.
-     */
-    @Getter
-    @DatabaseField(generatedId = true)
-    protected Integer id;
-
-
-    /**
-     * the deleted at date and time.
-     */
-    @Getter
-    @DatabaseField
-    protected ZonedDateTime deletedAt;
-
-    /**
-     * the created at date and time.
+     * The Fecha
      */
     @Getter
     @DatabaseField(canBeNull = false)
-    protected ZonedDateTime createdAt = ZonedDateTime.now();
+    private ZonedDateTime fecha;
 
     /**
-     * The email.
+     * The temperatura
      */
     @Getter
-    @DatabaseField(canBeNull = false, unique = true)
-    private  String Email;
+    @DatabaseField(canBeNull = false)
+    private Double temperatura;
 
     /**
-     * The Direccion.
+     * The peso.
      */
     @Getter
-    @DatabaseField(canBeNull = true)
-    private String direccion;
+    @DatabaseField(canBeNull = false)
+    private  Double peso;
+
+    /**
+     * The Altura
+     */
+    @Getter
+    @DatabaseField(canBeNull = false)
+    private  Double altura;
+
+    /**
+     * The diagnostico.
+     */
+    @Getter
+    @DatabaseField(canBeNull = false)
+    private String diagnostico;
+    /**
+     * The veterinario
+     */
+    @Getter
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName ="veterinario_id",canBeNull = false)
+    private Persona veterinario;
+
+    /**
+     * The ficha Medica
+     */
+    @Getter
+    @DatabaseField(foreign = true, foreignAutoRefresh = true,columnName = "Fichamedica_id")
+    private FichaMedica fichaMedica;
 }

@@ -58,8 +58,21 @@ public class testDatabase {
             Dao<Persona,Integer> daoPersona = DaoManager.createDao(connectionSource,Persona.class);
 
             //new Persona
-             Persona persona = new Persona("Andrea", "Contreras", "152532873");
+             Persona persona = new Persona(
+                     "Veterinaria",
+                    "152532873",
+                    " Andrea Contreras",
+                     "andrea.contreras@ucn.cl",
+                    "avenida angamos #123",
+                     "123456789"
+                     );
 
+            Persona persona1 =persona.builder()
+                    .rut("197868279")
+                    .nombre("Sebastian Ignacio Lobos Aravena")
+                    .direccion("angamos #111")
+                    .password("123456798")
+                    .build();
             //insert Persona into the database
             int tuples =daoPersona.create(persona);
 
@@ -74,6 +87,8 @@ public class testDatabase {
             Assertions.assertEquals(persona.getNombre(), personaDb.getNombre(),"Nombre not equals!");
             Assertions.assertEquals(persona.getRut(),personaDb.getRut(),"Rut not equals!");
             Assertions.assertEquals(persona.getEmail(), personaDb.getEmail(), "Email not equals");
+            Assertions.assertEquals(persona.getPassword(), personaDb.getPassword(), "Password not equals");
+            Assertions.assertEquals(persona.getDireccion(), personaDb.getDireccion(), "Direccion not equals");
         } catch (Exception e) {
             e.printStackTrace();
         }
